@@ -2,8 +2,8 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:tales_nov23/core/failure.dart';
-import 'package:tales_nov23/core/type_defs.dart';
+import '../core/failure.dart';
+import '../core/type_defs.dart';
 
 import '../constants/appwrite_constants.dart';
 import '../core/appwrite_providers.dart';

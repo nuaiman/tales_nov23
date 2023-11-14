@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tales_nov23/features/tales/views/get_tales_view.dart';
 
 import 'common/error_page.dart';
 import 'common/loading_page.dart';
 import 'features/auth/controllers/auth_controller.dart';
 import 'features/auth/views/profile_update_view.dart';
 import 'features/auth/views/signup_view.dart';
+import 'features/tales/views/get_tales_view.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));

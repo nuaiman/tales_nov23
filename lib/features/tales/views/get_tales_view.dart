@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tales_nov23/features/auth/controllers/auth_controller.dart';
-import 'package:tales_nov23/features/comments/controllers/comment_controller.dart';
-import 'package:tales_nov23/features/tales/controllers/tale_controller.dart';
+import '../../auth/controllers/auth_controller.dart';
+import '../../comments/controllers/comment_controller.dart';
+import '../controllers/tale_controller.dart';
 
 class GetTalesView extends ConsumerStatefulWidget {
   const GetTalesView({super.key});

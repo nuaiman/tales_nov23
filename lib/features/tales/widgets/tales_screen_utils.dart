@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tales_nov23/features/auth/controllers/auth_controller.dart';
+import '../../auth/controllers/auth_controller.dart';
 
 import '../views/share_tale_view.dart';
 

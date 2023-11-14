@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tales_nov23/common/large_elevated_button.dart';
-import 'package:tales_nov23/core/loader_provider.dart';
-import 'package:tales_nov23/features/auth/controllers/auth_controller.dart';
-import 'package:tales_nov23/features/tales/controllers/tale_controller.dart';
+import '../../../common/large_elevated_button.dart';
+import '../../../core/loader_provider.dart';
+import '../../auth/controllers/auth_controller.dart';
+import '../controllers/tale_controller.dart';
 
 import '../../../core/utils.dart';
 

@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tales_nov23/apis/storage_api.dart';
-import 'package:tales_nov23/apis/tale_api.dart';
-import 'package:tales_nov23/core/utils.dart';
-import 'package:tales_nov23/features/auth/controllers/auth_controller.dart';
-import 'package:tales_nov23/features/tales/views/tales_view.dart';
-import 'package:tales_nov23/models/tale_model.dart';
+import '../../../apis/storage_api.dart';
+import '../../../apis/tale_api.dart';
+import '../../../core/utils.dart';
+import '../../auth/controllers/auth_controller.dart';
+import '../views/tales_view.dart';
+import '../../../models/tale_model.dart';
 
 import '../../../constants/appwrite_constants.dart';
 import '../../../core/loader_provider.dart';

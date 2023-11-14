@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tales_nov23/features/comments/controllers/comment_controller.dart';
-import 'package:tales_nov23/models/tale_model.dart';
 
+import '../../../models/tale_model.dart';
+import '../controllers/comment_controller.dart';
 import '../widgets/add_comment_field.dart';
 import '../widgets/comment_tile.dart';
 

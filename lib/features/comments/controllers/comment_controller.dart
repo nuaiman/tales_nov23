@@ -1,9 +1,9 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tales_nov23/apis/comments_api.dart';
-import 'package:tales_nov23/models/comment_model.dart';
-import 'package:tales_nov23/models/tale_model.dart';
+import '../../../apis/comments_api.dart';
+import '../../../models/comment_model.dart';
+import '../../../models/tale_model.dart';
 
 import '../../../constants/appwrite_constants.dart';
 import '../../../core/utils.dart';
@@ -86,6 +86,19 @@ class CommentsController extends StateNotifier<List<CommentModel>> {
     }).onError((_) {
       startListeningForUpdates(currentUserId, context, ref);
     });
+  }
+
+  void updateComment(
+      String currentUserId, String newComment, CommentModel comment) async {
+    CommentModel updatedAbleComment = comment.copyWith(text: newComment);
+    // -------------------
+    final updatableIndex =
+        state.indexWhere((element) => element.id == updatedAbleComment.id);
+    state.removeAt(updatableIndex);
+    state.insert(updatableIndex, updatedAbleComment);
+    final newState = [...state.toSet().toList()];
+    state = newState;
+    await _commentsApi.updateComment(updatedAbleComment);
   }
 
   void reactToComment(

@@ -2,13 +2,13 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tales_nov23/features/tales/views/get_tales_view.dart';
 
 import '../../../apis/auth_api.dart';
 import '../../../apis/storage_api.dart';
+import '../../../core/loader_provider.dart';
 import '../../../core/utils.dart';
 import '../../../models/user_model.dart';
-import '../../../core/loader_provider.dart';
+import '../../tales/views/get_tales_view.dart';
 import '../views/login_view.dart';
 import '../views/profile_update_view.dart';
 

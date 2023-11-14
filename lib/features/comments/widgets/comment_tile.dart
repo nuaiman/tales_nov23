@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_reaction_button/flutter_reaction_button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tales_nov23/features/auth/controllers/auth_controller.dart';
-import 'package:tales_nov23/features/comments/controllers/comment_controller.dart';
-import 'package:tales_nov23/features/tales/widgets/tales_screen_utils.dart';
-import 'package:tales_nov23/models/comment_model.dart';
+import '../../auth/controllers/auth_controller.dart';
+import '../controllers/comment_controller.dart';
+import '../../tales/widgets/tales_screen_utils.dart';
+import '../../../models/comment_model.dart';
+
+import 'comment_edit_dialog.dart';
+import 'reaction_counter.dart';
 
 class CommentTile extends ConsumerWidget {
   const CommentTile({
@@ -55,11 +58,41 @@ class CommentTile extends ConsumerWidget {
                 currentUser.userId == comment.userId
                     ? IconButton(
                         onPressed: () {
-                          ref
-                              .read(commentsControllerProvider.notifier)
-                              .deleteComment(context, comment);
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text('Action Menu'),
+                              content: const Text(
+                                  'Would you like to edit or delete your comment?'),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      ref
+                                          .read(commentsControllerProvider
+                                              .notifier)
+                                          .deleteComment(context, comment);
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('Delete')),
+                                TextButton(
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return CommentEditDialog(
+                                              comment: comment,
+                                              initialValue: comment.text);
+                                        },
+                                      ).then((value) {
+                                        Navigator.of(context).pop();
+                                      });
+                                    },
+                                    child: const Text('Edit')),
+                              ],
+                            ),
+                          );
                         },
-                        icon: const Icon(Icons.delete))
+                        icon: const Icon(Icons.more_horiz))
                     : Opacity(
                         opacity: 0,
                         child: IconButton(
@@ -152,33 +185,6 @@ class CommentTile extends ConsumerWidget {
               itemSize: const Size(40, 40),
             ),
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class ReactionCounter extends StatelessWidget {
-  final String reactionImage;
-  final int reationCount;
-  const ReactionCounter({
-    super.key,
-    required this.reactionImage,
-    required this.reationCount,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4),
-      child: Row(
-        children: [
-          SizedBox(
-            height: 20,
-            width: 20,
-            child: Image.asset('assets/emojis/$reactionImage.png'),
-          ),
-          Text(reationCount.toString()),
         ],
       ),
     );
