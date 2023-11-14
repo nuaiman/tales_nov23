@@ -29,6 +29,24 @@ class TalesController extends StateNotifier<List<TaleModel>> {
         _loader = loader,
         super([]);
 
+  void updateTale(String currentUserId, List<File>? images, String? text,
+      TaleModel tale) async {
+    List<String>? imageLinks;
+    if (images != null) {
+      imageLinks = await _storageApi.uploadTaleImages(images);
+    }
+    TaleModel updatedAbleComment =
+        tale.copyWith(title: text, images: imageLinks);
+    // -------------------
+    final updatableIndex =
+        state.indexWhere((element) => element.id == updatedAbleComment.id);
+    state.removeAt(updatableIndex);
+    state.insert(updatableIndex, updatedAbleComment);
+    final newState = [...state.toSet().toList()];
+    state = newState;
+    await _taleApi.updateTale(updatedAbleComment);
+  }
+
   void reactTale(String value, TaleModel tale, String currentUserId) async {
     TaleModel updatedAbleTale = tale.copyWith(reactionValue: value);
     // ----------------------------------

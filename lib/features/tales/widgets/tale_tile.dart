@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_reaction_button/flutter_reaction_button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_time_ago/get_time_ago.dart';
+import 'package:tales_nov23/features/tales/views/edit_tale_view.dart';
 import '../../auth/controllers/auth_controller.dart';
 import '../controllers/tale_controller.dart';
 import '../../comments/views/comments_view.dart';
@@ -48,13 +49,47 @@ class TaleTile extends ConsumerWidget {
                 ),
                 if (tale.userId == currentUser.userId)
                   IconButton(
-                    onPressed: () {
-                      ref
-                          .read(talesControllerProvider.notifier)
-                          .deleteTale(context, tale);
-                    },
-                    icon: const Icon(Icons.delete),
-                  ),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Action Menu'),
+                            content: const Text(
+                                'Would you like to edit or delete your comment?'),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    ref
+                                        .read(talesControllerProvider.notifier)
+                                        .deleteTale(context, tale);
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Delete')),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          EditTaleView(tale: tale),
+                                    ))
+                                        .then((value) {
+                                      Navigator.of(context).pop();
+                                    });
+                                  },
+                                  child: const Text('Edit')),
+                            ],
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.more_horiz)),
+                // IconButton(
+                //   onPressed: () {
+                // ref
+                //     .read(talesControllerProvider.notifier)
+                //     .deleteTale(context, tale);
+                //   },
+                //   icon: const Icon(Icons.delete),
+                // ),
                 // Row(
                 //   children: [
                 //     IconButton(
