@@ -25,24 +25,47 @@ class CommentTile extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ReactionCounter(
-                  reactionImage: 'like',
-                  reationCount: comment.likeIds.length,
+                Opacity(
+                  opacity: 0,
+                  child: IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.more_horiz)),
                 ),
-                ReactionCounter(
-                  reactionImage: 'laugh',
-                  reationCount: comment.laughIds.length,
+                Row(
+                  children: [
+                    ReactionCounter(
+                      reactionImage: 'like',
+                      reationCount: comment.likeIds.length,
+                    ),
+                    ReactionCounter(
+                      reactionImage: 'laugh',
+                      reationCount: comment.laughIds.length,
+                    ),
+                    ReactionCounter(
+                      reactionImage: 'love',
+                      reationCount: comment.loveIds.length,
+                    ),
+                    ReactionCounter(
+                      reactionImage: 'angry',
+                      reationCount: comment.angryIds.length,
+                    ),
+                  ],
                 ),
-                ReactionCounter(
-                  reactionImage: 'love',
-                  reationCount: comment.loveIds.length,
-                ),
-                ReactionCounter(
-                  reactionImage: 'angry',
-                  reationCount: comment.angryIds.length,
-                ),
+                currentUser.userId == comment.userId
+                    ? IconButton(
+                        onPressed: () {
+                          ref
+                              .read(commentsControllerProvider.notifier)
+                              .deleteComment(context, comment);
+                        },
+                        icon: const Icon(Icons.delete))
+                    : Opacity(
+                        opacity: 0,
+                        child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.more_horiz)),
+                      ),
               ],
             ),
           ),

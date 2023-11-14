@@ -14,6 +14,7 @@ abstract class ICommentApi {
   Future<List<Document>> getComments();
   Stream<RealtimeMessage> getLatestComment();
   FutureVoid updateComment(CommentModel comment);
+  FutureVoid deleteComment(String commentId);
 }
 // -----------------------------------------------------------------------------
 
@@ -71,6 +72,15 @@ class CommentApi implements ICommentApi {
       collectionId: AppwriteConstants.commentsCollection,
       documentId: comment.id,
       data: comment.toMap(),
+    );
+  }
+
+  @override
+  FutureVoid deleteComment(String commentId) async {
+    await _db.deleteDocument(
+      databaseId: AppwriteConstants.databaseId,
+      collectionId: AppwriteConstants.commentsCollection,
+      documentId: commentId,
     );
   }
 }

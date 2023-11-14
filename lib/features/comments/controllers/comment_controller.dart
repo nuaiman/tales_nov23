@@ -68,6 +68,12 @@ class CommentsController extends StateNotifier<List<CommentModel>> {
           'databases.${AppwriteConstants.databaseId}.collections.${AppwriteConstants.commentsCollection}.documents.*.create')) {
         getAllComments(currentUserId);
       } else if (message.events.contains(
+          'databases.${AppwriteConstants.databaseId}.collections.${AppwriteConstants.commentsCollection}.documents.*.delete')) {
+        state.removeWhere((element) =>
+            element.id == CommentModel.fromMap(message.payload).id);
+        final newState = [...state];
+        state = newState;
+      } else if (message.events.contains(
           'databases.${AppwriteConstants.databaseId}.collections.${AppwriteConstants.commentsCollection}.documents.*.update')) {
         final updatedIndex = state.indexWhere((element) =>
             element.id == CommentModel.fromMap(message.payload).id);
@@ -184,6 +190,13 @@ class CommentsController extends StateNotifier<List<CommentModel>> {
   //   final newState = [...state.toSet().toList()];
   //   state = newState;
   // }
+
+  void deleteComment(BuildContext context, CommentModel comment) async {
+    await _commentsApi.deleteComment(comment.id);
+    state.removeWhere((element) => element.id == comment.id);
+    final newState = [...state];
+    state = newState;
+  }
 }
 // -----------------------------------------------------------------------------
 
